@@ -1,10 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Page from '../components/Page';
 import LoginForm from '../sections/auth/login/LoginForm';
 import logoSvg from '../assets/ship4wd-logo.png';
-
-
 
 
 // ----------------------------------------------------------------------
@@ -20,7 +18,7 @@ export default function Signin() {
           <br />
           <div className="col l4 offset-l4 s12">
             <div className="container">
-              <Link to="/">
+              <a href="https://ship4wrd.netlify.app/">
                 <br />
                 <center>
                   <img
@@ -32,7 +30,7 @@ export default function Signin() {
                   <br />
                   <br />
                 </center>
-              </Link>
+              </a>
 
               <div className="card-panel" style={{ borderRadius: '10px' }}>
                 <center>
