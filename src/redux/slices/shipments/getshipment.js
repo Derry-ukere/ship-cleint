@@ -62,13 +62,12 @@ export function getshipment(id) {
         querySnapshot.forEach((doc) => {
           container.push(doc.data());
         });
-        if (container) {
-            dispatch(slice.actions.success(container[0]));
-          } else {
-            dispatch(slice.actions.hasError('invalid tracking number'));
+        console.log('container', container.length)
+        if (container.length === 0) {
+          dispatch(slice.actions.hasError('invalid tracking number'));
+          return;
           }
-        console.log('shipment', container.length)
-        // return container[0].subscribers.includes(auth.currentUser.uid)
+          dispatch(slice.actions.success(container[0]));
       } catch (error) {
         const errorMessage = error.message;
         console.error(errorMessage)
