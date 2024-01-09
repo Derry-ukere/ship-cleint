@@ -5,18 +5,27 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Box } from '@mui/material';
 
+
+const SHIPPING_STATUS = {
+    trasit : 'In Transit',
+    hold : 'On Hold',
+    delivered : 'Delivered'
+  }
+
 const ShipmentDetails = ({ ShipmentDetails }) => {
 
     React.useEffect(() => {
         console.log('from card', ShipmentDetails)
     }, [ShipmentDetails])
+
+
     const { senderName, receiverName, trackingNumber, details, status, locations } = ShipmentDetails
     const renderTree = (locations) => (
         <>
 
             {locations.map((location, index) => (
                 <TreeView
-                key={index}
+                    key={index}
                     defaultCollapseIcon={<ExpandMoreIcon />}
                     defaultExpandIcon={<ChevronRightIcon />}
                 >
@@ -38,7 +47,7 @@ const ShipmentDetails = ({ ShipmentDetails }) => {
         <Box>
 
             <h1>Shipment Details</h1>
-            <p>Status: {status}</p>
+            <p style={{color: status === SHIPPING_STATUS.hold ? 'red' : 'green'}}> Status: {status}</p>
             <p>Contents: {details.contents}</p>
             <p>Weight: {details.weight}</p>
             <p>Dimensions: {details.dimensions}</p>
