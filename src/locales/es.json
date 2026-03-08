@@ -1,0 +1,42 @@
+{
+  "header": {
+    "title": "Rastrea Tu Envío",
+    "subtitle": "Ingresa tu número de seguimiento para obtener actualizaciones en tiempo real"
+  },
+  "search": {
+    "placeholder": "ej. SHP-2024-XXXXXX",
+    "button": "Rastrear",
+    "searching": "Buscando..."
+  },
+  "loading": "Buscando tu envío...",
+  "error": {
+    "title": "Envío No Encontrado",
+    "message": "Por favor, verifica tu número de seguimiento e intenta de nuevo."
+  },
+  "shipment": {
+    "trackingNumber": "Número de Seguimiento",
+    "estPickup": "Recogida Est.",
+    "type": "Tipo",
+    "service": "Servicio",
+    "packages": "Paquetes",
+    "weight": "Peso",
+    "value": "Valor",
+    "category": "Categoría",
+    "fragile": "Frágil",
+    "insured": "Asegurado",
+    "signatureRequired": "Firma Requerida",
+    "sender": "Remitente",
+    "receiver": "Destinatario",
+    "packageContents": "Contenido del Paquete",
+    "shipmentActivity": "Actividad del Envío",
+    "specialInstructions": "Instrucciones Especiales"
+  },
+  "status": {
+    "On Hold": "En Espera",
+    "In Transit": "En Tránsito",
+    "Delivered": "Entregado",
+    "Cancelled": "Cancelado",
+    "Processing": "Procesando"
+  },
+  "language": "Idioma"
+}

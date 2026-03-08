@@ -1,0 +1,42 @@
+{
+  "header": {
+    "title": "Track Your Shipment",
+    "subtitle": "Enter your tracking number to get real-time updates"
+  },
+  "search": {
+    "placeholder": "e.g. SHP-2024-XXXXXX",
+    "button": "Track",
+    "searching": "Searching..."
+  },
+  "loading": "Looking up your shipment...",
+  "error": {
+    "title": "Shipment Not Found",
+    "message": "Please double-check your tracking number and try again."
+  },
+  "shipment": {
+    "trackingNumber": "Tracking Number",
+    "estPickup": "Est. Pickup",
+    "type": "Type",
+    "service": "Service",
+    "packages": "Packages",
+    "weight": "Weight",
+    "value": "Value",
+    "category": "Category",
+    "fragile": "Fragile",
+    "insured": "Insured",
+    "signatureRequired": "Signature Required",
+    "sender": "Sender",
+    "receiver": "Receiver",
+    "packageContents": "Package Contents",
+    "shipmentActivity": "Shipment Activity",
+    "specialInstructions": "Special Instructions"
+  },
+  "status": {
+    "On Hold": "On Hold",
+    "In Transit": "In Transit",
+    "Delivered": "Delivered",
+    "Cancelled": "Cancelled",
+    "Processing": "Processing"
+  },
+  "language": "Language"
+}

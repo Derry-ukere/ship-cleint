@@ -26,7 +26,7 @@ export default function Router() {
         {
           element: (
             <>
-              <Signin />
+              <TrackShipment />
             </>
           ),
           index: true,
@@ -38,5 +38,5 @@ export default function Router() {
 }
 
 // pages
-const Signin = Loadable(lazy(() => import('../pages/Signin')));
+const TrackShipment = Loadable(lazy(() => import('../pages/TrackShipment')));
 

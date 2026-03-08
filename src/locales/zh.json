@@ -1,0 +1,42 @@
+{
+  "header": {
+    "title": "追踪您的货件",
+    "subtitle": "输入您的追踪号码以获取实时更新"
+  },
+  "search": {
+    "placeholder": "例如 SHP-2024-XXXXXX",
+    "button": "追踪",
+    "searching": "搜索中..."
+  },
+  "loading": "正在查找您的货件...",
+  "error": {
+    "title": "未找到货件",
+    "message": "请仔细检查您的追踪号码，然后重试。"
+  },
+  "shipment": {
+    "trackingNumber": "追踪号码",
+    "estPickup": "预计取件",
+    "type": "类型",
+    "service": "服务",
+    "packages": "包裹",
+    "weight": "重量",
+    "value": "价值",
+    "category": "类别",
+    "fragile": "易碎",
+    "insured": "已投保",
+    "signatureRequired": "需要签名",
+    "sender": "发件人",
+    "receiver": "收件人",
+    "packageContents": "包裹内容",
+    "shipmentActivity": "货件动态",
+    "specialInstructions": "特殊说明"
+  },
+  "status": {
+    "On Hold": "暂停",
+    "In Transit": "运输中",
+    "Delivered": "已送达",
+    "Cancelled": "已取消",
+    "Processing": "处理中"
+  },
+  "language": "语言"
+}

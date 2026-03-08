@@ -1,0 +1,42 @@
+{
+  "header": {
+    "title": "Rastreie Seu Envio",
+    "subtitle": "Insira seu número de rastreamento para obter atualizações em tempo real"
+  },
+  "search": {
+    "placeholder": "ex. SHP-2024-XXXXXX",
+    "button": "Rastrear",
+    "searching": "Buscando..."
+  },
+  "loading": "Procurando seu envio...",
+  "error": {
+    "title": "Envio Não Encontrado",
+    "message": "Por favor, verifique seu número de rastreamento e tente novamente."
+  },
+  "shipment": {
+    "trackingNumber": "Número de Rastreamento",
+    "estPickup": "Coleta Est.",
+    "type": "Tipo",
+    "service": "Serviço",
+    "packages": "Pacotes",
+    "weight": "Peso",
+    "value": "Valor",
+    "category": "Categoria",
+    "fragile": "Frágil",
+    "insured": "Segurado",
+    "signatureRequired": "Assinatura Necessária",
+    "sender": "Remetente",
+    "receiver": "Destinatário",
+    "packageContents": "Conteúdo do Pacote",
+    "shipmentActivity": "Atividade do Envio",
+    "specialInstructions": "Instruções Especiais"
+  },
+  "status": {
+    "On Hold": "Em Espera",
+    "In Transit": "Em Trânsito",
+    "Delivered": "Entregue",
+    "Cancelled": "Cancelado",
+    "Processing": "Processando"
+  },
+  "language": "Idioma"
+}

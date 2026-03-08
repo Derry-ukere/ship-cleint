@@ -1,0 +1,42 @@
+{
+  "header": {
+    "title": "अपना शिपमेंट ट्रैक करें",
+    "subtitle": "रीयल-टाइम अपडेट प्राप्त करने के लिए अपना ट्रैकिंग नंबर दर्ज करें"
+  },
+  "search": {
+    "placeholder": "जैसे SHP-2024-XXXXXX",
+    "button": "ट्रैक करें",
+    "searching": "खोज रहे हैं..."
+  },
+  "loading": "आपका शिपमेंट खोज रहे हैं...",
+  "error": {
+    "title": "शिपमेंट नहीं मिला",
+    "message": "कृपया अपना ट्रैकिंग नंबर दोबारा जांचें और पुनः प्रयास करें।"
+  },
+  "shipment": {
+    "trackingNumber": "ट्रैकिंग नंबर",
+    "estPickup": "अनुमानित पिकअप",
+    "type": "प्रकार",
+    "service": "सेवा",
+    "packages": "पैकेज",
+    "weight": "वज़न",
+    "value": "मूल्य",
+    "category": "श्रेणी",
+    "fragile": "नाज़ुक",
+    "insured": "बीमित",
+    "signatureRequired": "हस्ताक्षर आवश्यक",
+    "sender": "प्रेषक",
+    "receiver": "प्राप्तकर्ता",
+    "packageContents": "पैकेज सामग्री",
+    "shipmentActivity": "शिपमेंट गतिविधि",
+    "specialInstructions": "विशेष निर्देश"
+  },
+  "status": {
+    "On Hold": "रोक पर",
+    "In Transit": "पारगमन में",
+    "Delivered": "वितरित",
+    "Cancelled": "रद्द",
+    "Processing": "प्रसंस्करण"
+  },
+  "language": "भाषा"
+}

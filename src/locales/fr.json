@@ -1,0 +1,42 @@
+{
+  "header": {
+    "title": "Suivez Votre Envoi",
+    "subtitle": "Entrez votre numéro de suivi pour obtenir des mises à jour en temps réel"
+  },
+  "search": {
+    "placeholder": "ex. SHP-2024-XXXXXX",
+    "button": "Suivre",
+    "searching": "Recherche..."
+  },
+  "loading": "Recherche de votre envoi...",
+  "error": {
+    "title": "Envoi Non Trouvé",
+    "message": "Veuillez vérifier votre numéro de suivi et réessayer."
+  },
+  "shipment": {
+    "trackingNumber": "Numéro de Suivi",
+    "estPickup": "Enlèvement Est.",
+    "type": "Type",
+    "service": "Service",
+    "packages": "Colis",
+    "weight": "Poids",
+    "value": "Valeur",
+    "category": "Catégorie",
+    "fragile": "Fragile",
+    "insured": "Assuré",
+    "signatureRequired": "Signature Requise",
+    "sender": "Expéditeur",
+    "receiver": "Destinataire",
+    "packageContents": "Contenu du Colis",
+    "shipmentActivity": "Activité de l'Envoi",
+    "specialInstructions": "Instructions Spéciales"
+  },
+  "status": {
+    "On Hold": "En Attente",
+    "In Transit": "En Transit",
+    "Delivered": "Livré",
+    "Cancelled": "Annulé",
+    "Processing": "En Traitement"
+  },
+  "language": "Langue"
+}

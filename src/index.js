@@ -12,6 +12,9 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 // redux
 import { store } from './redux/store';
 
+// i18n
+import './locales/i18n';
+
 // ----------------------------------------------------------------------
 
 ReactDOM.render(

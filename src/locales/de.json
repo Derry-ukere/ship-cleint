@@ -1,0 +1,42 @@
+{
+  "header": {
+    "title": "Sendung Verfolgen",
+    "subtitle": "Geben Sie Ihre Sendungsnummer ein, um Echtzeit-Updates zu erhalten"
+  },
+  "search": {
+    "placeholder": "z.B. SHP-2024-XXXXXX",
+    "button": "Verfolgen",
+    "searching": "Suche..."
+  },
+  "loading": "Ihre Sendung wird gesucht...",
+  "error": {
+    "title": "Sendung Nicht Gefunden",
+    "message": "Bitte überprüfen Sie Ihre Sendungsnummer und versuchen Sie es erneut."
+  },
+  "shipment": {
+    "trackingNumber": "Sendungsnummer",
+    "estPickup": "Gesch. Abholung",
+    "type": "Typ",
+    "service": "Service",
+    "packages": "Pakete",
+    "weight": "Gewicht",
+    "value": "Wert",
+    "category": "Kategorie",
+    "fragile": "Zerbrechlich",
+    "insured": "Versichert",
+    "signatureRequired": "Unterschrift Erforderlich",
+    "sender": "Absender",
+    "receiver": "Empfänger",
+    "packageContents": "Paketinhalt",
+    "shipmentActivity": "Sendungsaktivität",
+    "specialInstructions": "Besondere Anweisungen"
+  },
+  "status": {
+    "On Hold": "Zurückgehalten",
+    "In Transit": "Unterwegs",
+    "Delivered": "Zugestellt",
+    "Cancelled": "Storniert",
+    "Processing": "In Bearbeitung"
+  },
+  "language": "Sprache"
+}
