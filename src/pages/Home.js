@@ -9,7 +9,7 @@
 import React from 'react';
 import { m, } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Container } from '@mui/material';
+import { Container, CircularProgress, Alert } from '@mui/material';
 import Page from '../components/Page';
 import { MotionContainer, MotionViewport, varFade,varZoom } from '../components/animate';
 import { Appdetails } from '../config';
@@ -18,14 +18,15 @@ import { Appdetails } from '../config';
 // redux
 import { useDispatch, useSelector } from '../redux/store';
 import { getHomePrices } from '../redux/slices/asserts/asserts'
+import { getshipment } from '../redux/slices/shipments/getshipment';
 
 // ----------------------------------------------------------------------
 
 export default function Home() {
   const { homePrices } = useSelector((state) => state.asserts);
+  const { shipment, isLoading, error } = useSelector((state) => state['get-shipment'] || {});
   const dispatch = useDispatch();
-
-
+  const [trackingNumber, setTrackingNumber] = React.useState('');
 
   React.useEffect(() => {
     const controller = new AbortController();
@@ -35,6 +36,21 @@ export default function Home() {
       controller.abort
     )
   }, [])
+
+  const handleSearchShipment = (e) => {
+    e.preventDefault();
+    if (trackingNumber.trim()) {
+      dispatch(getshipment(trackingNumber));
+      console.log('Searching for shipment with tracking number:', trackingNumber);
+    }
+  };
+
+  // Log shipment data when it's fetched
+  React.useEffect(() => {
+    if (shipment && !isLoading && !error) {
+      console.log('✓ Shipment data fetched successfully:', shipment);
+    }
+  }, [shipment, isLoading, error]);
 
 
 
@@ -86,6 +102,382 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* Shipment Search Section */}
+          <section className="app-py-3" style={{ backgroundColor: '#ffffff' }}>
+            <Container component={MotionViewport}>
+              <div className="container">
+                {/* Search Form */}
+                <div style={{ marginBottom: '50px' }}>
+                  <h2 style={{ textAlign: 'center', marginBottom: '10px', fontWeight: 'bold', fontSize: '32px', color: '#1a1a1a' }}>
+                    Track Your Shipment
+                  </h2>
+                  <p style={{ textAlign: 'center', color: '#666', marginBottom: '40px', fontSize: '16px' }}>
+                    Enter your tracking number to get real-time updates
+                  </p>
+
+                  <form onSubmit={handleSearchShipment}>
+                    <div style={{
+                      display: 'flex',
+                      gap: '12px',
+                      maxWidth: '700px',
+                      margin: '0 auto',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      backgroundColor: '#fff'
+                    }}>
+                      <input
+                        type="text"
+                        placeholder="e.g., 1772967453602-9612"
+                        value={trackingNumber}
+                        onChange={(e) => setTrackingNumber(e.target.value)}
+                        disabled={isLoading}
+                        style={{
+                          flex: 1,
+                          padding: '16px 20px',
+                          border: 'none',
+                          fontSize: '15px',
+                          fontFamily: 'inherit',
+                          outline: 'none',
+                          backgroundColor: '#fff',
+                          color: '#1a1a1a',
+                        }}
+                      />
+                      <button
+                        type="submit"
+                        disabled={isLoading || !trackingNumber.trim()}
+                        style={{
+                          padding: '16px 40px',
+                          backgroundColor: isLoading ? '#e0e0e0' : '#1976d2',
+                          color: isLoading ? '#999' : 'white',
+                          border: 'none',
+                          cursor: isLoading ? 'not-allowed' : 'pointer',
+                          fontSize: '15px',
+                          fontWeight: '600',
+                          transition: 'background-color 0.3s',
+                          whiteSpace: 'nowrap',
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isLoading && trackingNumber.trim()) {
+                            e.target.style.backgroundColor = '#1565c0';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isLoading && trackingNumber.trim()) {
+                            e.target.style.backgroundColor = '#1976d2';
+                          }
+                        }}
+                      >
+                        {isLoading ? '⟳ Searching...' : '🔍 Search'}
+                      </button>
+                    </div>
+                  </form>
+
+                  {/* Loading State */}
+                  {isLoading && (
+                    <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+                      <CircularProgress size={50} thickness={4} />
+                      <p style={{ marginTop: '20px', color: '#666', fontSize: '16px' }}>
+                        Fetching shipment information...
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Error State */}
+                  {error && !isLoading && (
+                    <div style={{ maxWidth: '700px', margin: '30px auto' }}>
+                      <Alert severity="error" style={{ fontSize: '15px', borderRadius: '8px' }}>
+                        <strong>Unable to find shipment</strong> — {error}. Please check the tracking number and try again.
+                      </Alert>
+                    </div>
+                  )}
+                </div>
+
+                {/* Success State - Shipment Details */}
+                {shipment && !isLoading && !error && (
+                  <div style={{ marginTop: '50px' }}>
+                    {/* Header with Tracking Number and Status */}
+                    <div style={{
+                      backgroundColor: '#f8f9fa',
+                      borderRadius: '12px',
+                      padding: '30px',
+                      marginBottom: '30px',
+                      borderLeft: '5px solid #1976d2'
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px' }}>
+                        <div>
+                          <p style={{ margin: '0 0 8px 0', color: '#666', fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                            Tracking Number
+                          </p>
+                          <h3 style={{ margin: '0', fontSize: '24px', fontWeight: '600', color: '#1a1a1a', fontFamily: 'monospace' }}>
+                            {shipment.trackingNumber}
+                          </h3>
+                        </div>
+                        <div style={{
+                          display: 'inline-block',
+                          backgroundColor: '#fff3cd',
+                          color: '#856404',
+                          padding: '12px 20px',
+                          borderRadius: '6px',
+                          fontSize: '14px',
+                          fontWeight: '600'
+                        }}>
+                          ⏱ {shipment.status}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Two Column Layout */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px', marginBottom: '30px' }}>
+                      {/* Sender Info Card */}
+                      <div style={{
+                        backgroundColor: '#fff',
+                        border: '1px solid #e0e0e0',
+                        borderRadius: '12px',
+                        padding: '24px',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+                      }}>
+                        <h4 style={{ margin: '0 0 16px 0', fontSize: '16px', fontWeight: '600', color: '#1a1a1a' }}>
+                          📤 Sender Information
+                        </h4>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px' }}>
+                          <div>
+                            <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Name</p>
+                            <p style={{ margin: '0', fontWeight: '500', color: '#1a1a1a' }}>{shipment.sender.name}</p>
+                          </div>
+                          <div>
+                            <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Company</p>
+                            <p style={{ margin: '0', fontWeight: '500', color: '#1a1a1a' }}>{shipment.sender.company}</p>
+                          </div>
+                          <div>
+                            <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Email</p>
+                            <p style={{ margin: '0', color: '#1976d2', wordBreak: 'break-all' }}>{shipment.sender.email}</p>
+                          </div>
+                          <div>
+                            <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Phone</p>
+                            <p style={{ margin: '0', fontWeight: '500', color: '#1a1a1a' }}>{shipment.sender.phone}</p>
+                          </div>
+                          <div>
+                            <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Address</p>
+                            <p style={{ margin: '0', color: '#1a1a1a', fontSize: '13px', lineHeight: '1.6' }}>
+                              {shipment.sender.address.street}<br />
+                              {shipment.sender.address.city}, {shipment.sender.address.state} {shipment.sender.address.zip}<br />
+                              {shipment.sender.address.country}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Receiver Info Card */}
+                      <div style={{
+                        backgroundColor: '#fff',
+                        border: '1px solid #e0e0e0',
+                        borderRadius: '12px',
+                        padding: '24px',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+                      }}>
+                        <h4 style={{ margin: '0 0 16px 0', fontSize: '16px', fontWeight: '600', color: '#1a1a1a' }}>
+                          📥 Receiver Information
+                        </h4>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px' }}>
+                          <div>
+                            <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Name</p>
+                            <p style={{ margin: '0', fontWeight: '500', color: '#1a1a1a' }}>{shipment.receiver.name}</p>
+                          </div>
+                          <div>
+                            <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Company</p>
+                            <p style={{ margin: '0', fontWeight: '500', color: '#1a1a1a' }}>{shipment.receiver.company}</p>
+                          </div>
+                          <div>
+                            <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Email</p>
+                            <p style={{ margin: '0', color: '#1976d2', wordBreak: 'break-all' }}>{shipment.receiver.email}</p>
+                          </div>
+                          <div>
+                            <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Phone</p>
+                            <p style={{ margin: '0', fontWeight: '500', color: '#1a1a1a' }}>{shipment.receiver.phone}</p>
+                          </div>
+                          <div>
+                            <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Address</p>
+                            <p style={{ margin: '0', color: '#1a1a1a', fontSize: '13px', lineHeight: '1.6' }}>
+                              {shipment.receiver.address.street}<br />
+                              {shipment.receiver.address.city}, {shipment.receiver.address.state} {shipment.receiver.address.zip}<br />
+                              {shipment.receiver.address.country}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Package Details */}
+                    <div style={{
+                      backgroundColor: '#fff',
+                      border: '1px solid #e0e0e0',
+                      borderRadius: '12px',
+                      padding: '24px',
+                      marginBottom: '30px',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+                    }}>
+                      <h4 style={{ margin: '0 0 20px 0', fontSize: '16px', fontWeight: '600', color: '#1a1a1a' }}>
+                        📦 Package Details
+                      </h4>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '20px' }}>
+                        <div>
+                          <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '6px' }}>Weight</p>
+                          <p style={{ margin: '0', fontSize: '15px', fontWeight: '600', color: '#1a1a1a' }}>{shipment.details.weight} kg</p>
+                        </div>
+                        <div>
+                          <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '6px' }}>Dimensions</p>
+                          <p style={{ margin: '0', fontSize: '13px', color: '#1a1a1a' }}>{shipment.details.dimensions}</p>
+                        </div>
+                        <div>
+                          <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '6px' }}>Package Count</p>
+                          <p style={{ margin: '0', fontSize: '15px', fontWeight: '600', color: '#1a1a1a' }}>{shipment.details.packageCount}</p>
+                        </div>
+                        <div>
+                          <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '6px' }}>Declared Value</p>
+                          <p style={{ margin: '0', fontSize: '15px', fontWeight: '600', color: '#1a1a1a' }}>${shipment.details.declaredValue}</p>
+                        </div>
+                        <div>
+                          <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '6px' }}>Category</p>
+                          <p style={{ margin: '0', fontSize: '13px', color: '#1a1a1a' }}>{shipment.details.contentCategory}</p>
+                        </div>
+                        <div>
+                          <p style={{ margin: '0', color: '#666', fontSize: '12px', textTransform: 'uppercase', marginBottom: '6px' }}>Service Level</p>
+                          <p style={{ margin: '0', fontSize: '13px', fontWeight: '600', color: '#1976d2' }}>{shipment.serviceLevel}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Shipment Options */}
+                    {shipment.options && (
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px', marginBottom: '30px' }}>
+                        {shipment.options.isFragile && (
+                          <div style={{
+                            backgroundColor: '#fff3cd',
+                            border: '1px solid #ffc107',
+                            borderRadius: '8px',
+                            padding: '12px 16px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px'
+                          }}>
+                            <span style={{ fontSize: '18px' }}>⚠️</span>
+                            <span style={{ fontWeight: '500', color: '#856404' }}>Fragile Items</span>
+                          </div>
+                        )}
+                        {shipment.options.requiresInsurance && (
+                          <div style={{
+                            backgroundColor: '#e3f2fd',
+                            border: '1px solid #2196f3',
+                            borderRadius: '8px',
+                            padding: '12px 16px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px'
+                          }}>
+                            <span style={{ fontSize: '18px' }}>🛡️</span>
+                            <span style={{ fontWeight: '500', color: '#1565c0' }}>Insurance Required</span>
+                          </div>
+                        )}
+                        {shipment.options.requiresSignature && (
+                          <div style={{
+                            backgroundColor: '#f3e5f5',
+                            border: '1px solid #9c27b0',
+                            borderRadius: '8px',
+                            padding: '12px 16px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px'
+                          }}>
+                            <span style={{ fontSize: '18px' }}>✍️</span>
+                            <span style={{ fontWeight: '500', color: '#6a1b9a' }}>Signature Required</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Tracking Timeline */}
+                    {shipment.locations && shipment.locations.length > 0 && (
+                      <div style={{
+                        backgroundColor: '#fff',
+                        border: '1px solid #e0e0e0',
+                        borderRadius: '12px',
+                        padding: '24px',
+                        marginBottom: '30px',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+                      }}>
+                        <h4 style={{ margin: '0 0 24px 0', fontSize: '16px', fontWeight: '600', color: '#1a1a1a' }}>
+                          📍 Tracking Timeline
+                        </h4>
+                        <div style={{ position: 'relative' }}>
+                          {shipment.locations.map((loc, idx) => {
+                            const date = new Date(loc.timestamp.seconds * 1000);
+                            const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                            const formattedTime = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                            return (
+                              <div key={idx} style={{ display: 'flex', gap: '16px', marginBottom: idx === shipment.locations.length - 1 ? 0 : '24px' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                  <div style={{
+                                    width: '12px',
+                                    height: '12px',
+                                    backgroundColor: idx === 0 ? '#4caf50' : '#1976d2',
+                                    borderRadius: '50%',
+                                    border: '2px solid #fff',
+                                    boxShadow: '0 0 0 2px ' + (idx === 0 ? '#4caf50' : '#1976d2')
+                                  }} />
+                                  {idx !== shipment.locations.length - 1 && (
+                                    <div style={{
+                                      width: '2px',
+                                      height: '40px',
+                                      backgroundColor: '#e0e0e0',
+                                      marginTop: '8px'
+                                    }} />
+                                  )}
+                                </div>
+                                <div style={{ flex: 1, paddingTop: '2px' }}>
+                                  <p style={{ margin: '0 0 4px 0', fontWeight: '600', color: '#1a1a1a', fontSize: '14px' }}>
+                                    {loc.location}
+                                  </p>
+                                  <p style={{ margin: '0 0 8px 0', color: '#666', fontSize: '13px' }}>
+                                    {formattedDate} at {formattedTime}
+                                  </p>
+                                  {loc.description && (
+                                    <p style={{ margin: '0', color: '#555', fontSize: '13px', lineHeight: '1.5' }}>
+                                      {loc.description}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Special Instructions */}
+                    {shipment.specialInstructions && (
+                      <div style={{
+                        backgroundColor: '#f0f7ff',
+                        border: '1px solid #b3d9ff',
+                        borderRadius: '12px',
+                        padding: '24px',
+                        marginBottom: '30px'
+                      }}>
+                        <h4 style={{ margin: '0 0 12px 0', fontSize: '16px', fontWeight: '600', color: '#1a1a1a' }}>
+                          ℹ️ Special Instructions
+                        </h4>
+                        <p style={{ margin: '0', color: '#1a1a1a', fontSize: '14px', lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>
+                          {shipment.specialInstructions}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </Container>
+          </section>
+
           <div className="tradingview-widget-container">
             <div className="tradingview-widget-container__widget" />
             <div id="tradingview_3e2" />

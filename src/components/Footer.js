@@ -14,9 +14,7 @@ function Footer() {
           <div className="col l8 s12 app-mobile-center">
             <img src={Appdetails.logoSvg} style={{ height: '72px' }} />
             <h3 style={{ marginTop: '0px', marginBottom: '10px' }}>Ship4wrd</h3>
-            <p>
-              <span className="material-icons notranslate">mail</span>support@ship4wd.com
-            </p>
+            <p> </p>
           </div> 
         </div>
       </div>
